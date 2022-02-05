@@ -1,3 +1,6 @@
+# ------------------------------------------------------------------------------
+# Code modified from THUML's Transfer Learning Library
+# ------------------------------------------------------------------------------
 import torch
 import torch.nn as nn
 from typing import Optional
