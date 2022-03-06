@@ -327,30 +327,30 @@ def main(args):
     # print(feature_extractor.bottleneck)
 
     if args.finetune:
-        backbone_lr = 0.1
+        backbone_lr_mul = 0.1
     else:
-        backbone_lr = 1.
+        backbone_lr_mul = 1.
 
     # optimizers
-    featurizer_opt = SGD(feature_extractor.get_parameters(backbone_lr=backbone_lr),
+    featurizer_opt = SGD(feature_extractor.get_parameters(backbone_lr=backbone_lr_mul*args.lr, bottleneck_lr=args.lr),
                          args.lr,
                          momentum=args.momentum,
                          weight_decay=args.weight_decay,
                          nesterov=True)
 
-    subject_opt = SGD(subject_classifier.get_parameters(),
+    subject_opt = SGD(subject_classifier.get_parameters(head_lr=args.lr),
                       args.lr,
                       momentum=args.momentum,
                       weight_decay=args.weight_decay,
                       nesterov=True)
 
-    verb_opt = SGD(verb_discriminator.get_parameters(),
+    verb_opt = SGD(verb_discriminator.get_parameters(head_lr=args.lr),
                    args.lr,
                    momentum=args.momentum,
                    weight_decay=args.weight_decay,
                    nesterov=True)
 
-    object_opt = SGD(object_discriminator.get_parameters(),
+    object_opt = SGD(object_discriminator.get_parameters(head_lr=args.lr),
                      args.lr,
                      momentum=args.momentum,
                      weight_decay=args.weight_decay,
